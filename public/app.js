@@ -1,3 +1,5 @@
+    var userEmail;
+
     function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider()
   
@@ -6,17 +8,23 @@
       .signInWithPopup(provider)
       .then(result => {
         const user = result.user
-        writeUserData(showUser(user), 'jon');
+        showUser(user);
       })
   }
   
   function showUser(user) {
-    return user.displayName
+    userEmail = user.displayName;
+  }
+
+  function addUser() {
+      alert('writing to ' + userEmail);
+      writeUserData(userEmail, 'test');
   }
   
   function writeUserData(login, name) {
-    firebase.database().ref(login).set({
+    var writeRef = firebase.database().ref(login+'/');
+    writeRef.push({
       username: name,
     });
   }
-  
+  //unique code>name, email, phone
