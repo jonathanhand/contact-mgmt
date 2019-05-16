@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact Management</title>
+    <script src="/__/firebase/5.10.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.10.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.10.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.10.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.10.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.10.0/firebase-firestore.js"></script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.10.0/firebase-auth.js"></script> -->
+
+    <script>
+      // Set the configuration for your app
+  var config = {
+    apiKey: " AIzaSyACfQPZSxKnDurb7lEm2JxY4t9pkGMqb_E ",
+    authDomain: "contact-mgmt-d3ddb.firebaseapp.com",
+    databaseURL: "https://contact-mgmt-d3ddb.firebaseio.com/",
+    projectId: "contact-mgmt-d3ddb",
+    storageBucket: "contact-mgmt-d3ddb.appspot.com"
+  };
+  firebase.initializeApp(config);
+    </script>
+  </head>
+  <body>
+
+
+<button onclick="googleLogin()">
+      Login with Google
+    </button>
+
+
+    <script defer src="app.js"></script>
+  </body>
+</html>
