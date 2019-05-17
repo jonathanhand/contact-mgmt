@@ -1,5 +1,11 @@
     var userEmail = 'Jonathan Hand';
     var contact;
+    var target = document.getElementById('table1');
+    var counter = 0;
+
+    const indexForm = document.getElementById('indexArea');
+    const createForm = document.getElementById('createForm');
+    const deatailsForm = document.getElementById('detailsForm');
 
     function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider()
@@ -18,39 +24,193 @@
   }
 
   function addUser() {
-      alert('writing to ' + userEmail);
-      writeUserData(userEmail, 'test');
+      console.log('writing to ' + userEmail);
+      writeUserData(userEmail);
   }
   
-  function writeUserData(login, name) {
+  function writeUserData(login) {
     var writeRef = firebase.database().ref(login+'/');
     writeRef.push({
-      username: name,
+        name: document.getElementById("newName").value,
+        email: document.getElementById("newEmail").value,
+        phone: document.getElementById("newPhone").value
     });
+    location.reload();
   }
 
   function getUsers() {
       getUserData(userEmail);
   }
 
-    // var userId = firebase.database().ref('/' + login + '/')
-    // .on('value', function(snapshot)) {
-    //   printList(snapshot.val())
-    // });
-
-    var starCountRef = firebase.database().ref('/' + userEmail + '/');
-    starCountRef.on('value', function(snapshot) {
-      printList(snapshot.val());
+    var loginRef = firebase.database().ref('/' + userEmail + '/');
+    loginRef.on('value', function(snapshot) {
+        contact = snapshot.val();
+      printList(contact);
+      console.log(snapshot.val().key);
     });
     
   function printList(contact) {
     // for (var id in contact) {
         for (each in contact) {
-        console.log(contact[each].username);
+        console.log(each); 
+        makeTable(contact, each, target);
         }
-    //   makeTable(snapshotDB[id], target);
-      // addDetailsBtn(id, target);
-      // addEditBtn(id, target);
-      // addDeleteBtn(id, target);
-    // }
+      
   }
+
+  function makeTable(contact, i, target) {
+    counter += 1;
+    var trNode = document.createElement("tr");
+    var tdNum = document.createTextNode(counter);
+    var tdName = document.createTextNode(contact[i]["name"]);
+    var tdEmail = document.createTextNode(contact[i]["email"]);
+    var tdPhone = document.createTextNode(contact[i]["phone"]);
+    var tdNodeNum = document.createElement("td");;
+    var tdNodeName = document.createElement("td");
+    var tdNodeEmail = document.createElement("td");
+    var tdNodePhone = document.createElement("td");
+  
+    tdNodeNum.appendChild(tdNum);
+    tdNodeName.appendChild(tdName);
+    tdNodeEmail.appendChild(tdEmail);
+    tdNodePhone.appendChild(tdPhone);
+    trNode.appendChild(tdNodeNum);
+    trNode.appendChild(tdNodeName);
+    trNode.appendChild(tdNodeEmail);
+    trNode.appendChild(tdNodePhone);
+    trNode.appendChild(addDetailsBtn(i, target));
+    trNode.appendChild(addEditBtn(i, target));
+    trNode.appendChild(addDeleteBtn(i, target));
+  
+  
+    target.appendChild(trNode);
+    // addDeleteBtn(dbData, target);
+  
+  }
+
+  function addEditBtn(dataID) {
+    const editBtn = document.createElement("input");
+    editBtn.type = "button";
+    editBtn.className = "editBtn";
+    editBtn.value = "Edit";
+    editBtn.setAttribute("edit-id", dataID);
+    // target.appendChild(editBtn);
+  
+    editBtn.addEventListener("click", function(e) {
+      var selectedID = editBtn.getAttribute("edit-id");
+      showEdit(selectedID);
+    });
+    return editBtn;
+  }
+
+  function addDeleteBtn(dataID) {
+    const deleteBtn = document.createElement("input");
+    deleteBtn.type = "button";
+    deleteBtn.className = "deleteBtn";
+    deleteBtn.value = "Delete";
+    deleteBtn.setAttribute("delete-id", dataID);
+    // target.appendChild(deleteBtn);
+  
+    deleteBtn.addEventListener("click", function(e) {
+      var returnedVal = getConfirmation();
+      if (returnedVal == true) {
+        var selectedID = deleteBtn.getAttribute("delete-id");
+        deleteRecord(selectedID);
+      }
+    });
+    return deleteBtn;
+  }
+
+  function addDetailsBtn(dataID) {
+    const detailsBtn = document.createElement("input");
+    detailsBtn.type = "button";
+    detailsBtn.className = "ipDetailsBtn";
+    detailsBtn.value = "Details";
+    detailsBtn.setAttribute("details-id", dataID);
+
+  
+    detailsBtn.addEventListener("click", function(e) {
+      var selectedID = detailsBtn.getAttribute("details-id");
+      showDetails(selectedID);
+    });
+    return detailsBtn;
+  
+  }
+
+    function showCreate() {
+        
+        indexForm.style.display= "none";
+        createForm.style.display= "block";
+        detailsForm.style.display= "none";
+        editForm.style.display = "none";
+
+    }
+
+    function showIndex() {
+        indexForm.style.display= "block";
+        createForm.style.display= "none";
+        detailsForm.style.display= "none";
+        editForm.style.display = "none";
+        location.reload();
+
+    }
+
+    function showDetails(selectedID) {
+        indexForm.style.display= "none";
+        createForm.style.display= "none";
+        detailsForm.style.display= "block";
+        editForm.style.display = "none";
+
+        const nameP = document.getElementById("nameP");
+        const emailP = document.getElementById("emailP");
+        const phoneP = document.getElementById("phoneP");
+        
+
+        nameP.innerHTML = contact[selectedID]["name"];
+        emailP.innerHTML = contact[selectedID]["email"];
+        phoneP.innerHTML = contact[selectedID]["phone"];
+    }
+
+    function showEdit (selectedID) {
+        indexForm.style.display= "none";
+        createForm.style.display= "none";
+        detailsForm.style.display= "none";
+        editForm.style.display = "block";
+        
+        const nameF = document.getElementById("editNameField");
+        const emailF = document.getElementById("editEmailField");
+        const phoneF = document.getElementById("editPhoneField");
+
+        nameF.value = contact[selectedID]["name"];
+        emailF.value = contact[selectedID]["email"];
+        phoneF.value = contact[selectedID]["phone"];
+
+        subEditBtn.addEventListener("click", function(e) {
+            var editRef = firebase.database().ref(userEmail+'/');
+            editRef.update({
+                [selectedID]: {
+                name: nameF.value,
+                email: emailF.value,
+                phone: phoneF.value
+                }
+            });
+            location.reload();
+          });
+    }
+
+    function deleteRecord (selectedID) {
+    firebase
+    .database()
+    .ref(userEmail + '/' + selectedID)
+    .remove();
+  alert("deleted");
+  location.reload();
+    }
+    function getConfirmation() {
+        var retVal = confirm("Are you sure?");
+        if (retVal == true) {
+          return true;
+        } else {
+          return false;
+        }
+      }

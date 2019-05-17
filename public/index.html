@@ -34,10 +34,11 @@
 <button onclick="googleLogin()">
       Login with Google
     </button>
-    <button onclick="getUsers()">Get Data</button>
 <button onclick="addUser()">Write Data</button>
+<button onclick="showIndex()">index</button>
+<button onclick="showCreate()">create</button>
 
-<div class="targetArea">
+<div id="indexArea">
     <h1>Contact List</h1>
           <div id="message">
                 <table id="table1">
@@ -50,6 +51,59 @@
                   </table>
               </div>
             </div>
+
+<div id="createForm" style="display:none">
+    <form>
+        <div class="form">
+              <fieldset>
+                  <legend><h2>New Contact</h2></legend>
+                  Name:<br>
+                  <input type="text" id="newName" required><br>
+                  Email:<br>
+                  <input type="text" id="newEmail"  required><br>
+                  Phone Number:<br>
+                  <input type="text" id="newPhone" ><br><br>
+                  <button type="button" id="myButton" onclick="addUser()" required>Submit</button>
+              </fieldset>
+            </div>
+          </form>
+</div>
+
+<div id="detailsForm" style="display:none">
+    <form>
+        <div class="form">
+              <fieldset>
+                  <legend><h2>Contact</h2></legend>
+                  Name:<br>
+                  <p id="nameP">name</p>
+                  Email:<br>
+                  <p id="emailP">name</p>
+                  Phone Number:<br>
+                  <p id="phoneP">name</p>
+                  
+              </fieldset>
+              <button type="button" id="editDetailBtn" required>Edit</button>
+              <button type="button" id="deleteDetailBtn" required>Delete</button>
+            </div>
+    </form>
+</div>
+
+<div id="editForm" style="display:none">
+    <form>
+        <div class="form">
+              <fieldset>
+                  <legend><h2>Contact</h2></legend>
+                  Name:<br>
+                  <input type="text" id="editNameField">name</input>
+                  Email:<br>
+                  <input type="text" id="editEmailField">name</input>
+                  Phone Number:<br>
+                  <input type="text" id="editPhoneField">name</input>
+              </fieldset>
+              <button type="button" id="subEditBtn" >Submit</button>
+            </div>
+    </form>
+</div>
 
     <script defer src="app.js"></script>
   </body>
