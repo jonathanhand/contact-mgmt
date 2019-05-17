@@ -169,7 +169,20 @@
         nameP.innerHTML = contact[selectedID]["name"];
         emailP.innerHTML = contact[selectedID]["email"];
         phoneP.innerHTML = contact[selectedID]["phone"];
-    }
+        
+        editDetailBtn = document.getElementById('editDetailBtn');
+        editDetailBtn.addEventListener("click", function(e) {
+            showEdit(selectedID);
+            });
+
+        deleteDetailBtn = document.getElementById('deleteDetailBtn');
+        deleteDetailBtn.addEventListener("click", function(e) {
+            var returnedVal = getConfirmation();
+            if (returnedVal == true) {
+            deleteRecord(selectedID);
+      }
+        });
+          }
 
     function showEdit (selectedID) {
         indexForm.style.display= "none";
