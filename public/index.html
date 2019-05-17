@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact Management</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="/__/firebase/5.10.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/5.10.0/firebase-auth.js"></script>
@@ -31,79 +32,106 @@
   <body>
 
 
-<button onclick="googleLogin()">
-      Login with Google
-    </button>
-<button onclick="showIndex()">index</button>
-<button onclick="showCreate()">create</button>
 
+</div>
+<div>
+<div class = 'content' id = 'content'>
+    <div class = 'topBar' id = 'topBar'> 
+        <div class = 'barContent'>
+            <span class = 'CM'> Contact Management </span>
+            <input onclick="showIndex()" type = 'button' class = 'buttonActive' id = 'indexBtn' value = '&#9776 Index'/>
+            <input onclick="showCreate()" type = 'button' class = 'buttonDeactive' id = 'createBtn' value = '&#10010 New'/>
+            <button id="googleBtn" style="float: right; "class = 'buttonDeactive' onclick="googleLogin()">Login with Google</button>
+
+        </div>
+    </div>
+    <div class = 'targetArea' id = 'targetArea'></div>
+</div>
+<div class="wrapper">
+<!-- INDEX FORM---------->
 <div id="indexArea">
     <h1>Contact List</h1>
+
           <div id="message">
-                <table id="table1">
+            <p id="userID"></p>
+                <table class="topBorder" id="table1">
                   <div class='header'>
-                    <span>#</span>
-                    <span>Name</span>
-                    <span>Email</span>
-                    <span>Phone</span>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                   </div>
                   </table>
+                  <div class="bottomHeader">
+
+                    </div>
               </div>
             </div>
-
+          </div>
+<!-- CREATE FORM---------->
 <div id="createForm" style="display:none">
     <form>
         <div class="form">
               <fieldset>
                   <legend><h2>New Contact</h2></legend>
                   Name:<br>
-                  <input type="text" id="newName" required><br>
+                  <input type="text" class="fieldWidth" id="newName" placeholder="Jonathan Hand" ><br>
                   Email:<br>
-                  <input type="text" id="newEmail"  required><br>
+                  <input type="text" class="fieldWidth"id="newEmail"  placeholder="jhand@example.com" ><br>
                   Phone Number:<br>
-                  <input type="text" id="newPhone" ><br><br>
-                  <button type="button" id="myButton" onclick="addUser()" required>Submit</button>
+                  <input type="text" class="fieldWidth"id="newPhone" placeholder="555-555-5555"><br><br>
+                  <button type="button" id="myButton" class="subBtn" onclick="addUser()">Submit</button>
               </fieldset>
             </div>
           </form>
 </div>
-
+</div>
+<!-- DETAILS FORM---------->
 <div id="detailsForm" style="display:none">
     <form>
+
         <div class="form">
+            <div id="cHeadingDiv">
+                <p>Contact<p>
+              </div>
               <fieldset>
-                  <legend><h2>Contact</h2></legend>
-                  Name:<br>
-                  <p id="nameP">name</p>
-                  Email:<br>
-                  <p id="emailP">name</p>
-                  Phone Number:<br>
-                  <p id="phoneP">name</p>
+                  Name:
+                  <span class='values'id="nameP">name</span><br>
+                  Email:
+                  <span class='values'id="emailP">name</span><br>
+                  Phone Number:
+                  <span class='values'id="phoneP">name</span>
                   
               </fieldset>
-              <button type="button" id="editDetailBtn" required>Edit</button>
-              <button type="button" id="deleteDetailBtn" required>Delete</button>
+              <div class="dBtns">
+              <button type="button" class="ipEditBtn" id="editDetailBtn" required>Edit</button>
+              <button type="button" class="ipDeleteBtn" id="deleteDetailBtn" required>Delete</button>
+            </div>
             </div>
     </form>
 </div>
-
+<!-- EDIT FORM---------->
 <div id="editForm" style="display:none">
-    <form>
+ 
         <div class="form">
+          <div id="cHeadingDiv">
+            <p>Edit Contact</p>
+            </div>
+            <form class="eContent">
               <fieldset>
-                  <legend><h2>Contact</h2></legend>
                   Name:<br>
-                  <input type="text" id="editNameField">name</input>
+                  <input type="text" class="fieldWidth"id="editNameField"><br>
                   Email:<br>
-                  <input type="text" id="editEmailField">name</input>
+                  <input type="text" class="fieldWidth"id="editEmailField"><br>
                   Phone Number:<br>
-                  <input type="text" id="editPhoneField">name</input>
+                  <input type="text" class="fieldWidth"id="editPhoneField"><br>
               </fieldset>
-              <button type="button" id="subEditBtn" >Submit</button>
+              <button type="button" id="subEditBtn" class="subBtn">Submit</button>
             </div>
     </form>
 </div>
-
+</div>
+</div>
     <script defer src="app.js"></script>
   </body>
 </html>

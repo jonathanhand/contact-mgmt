@@ -7,9 +7,19 @@
     const createForm = document.getElementById('createForm');
     const deatailsForm = document.getElementById('detailsForm');
 
+    document.getElementById("userID").innerHTML = "Contact list for: " + userEmail;
     function googleLogin() {
+        googleBtn.classList.remove('buttonDeactive');
+        googleBtn.classList.add('buttonActive');
+        setInterval(function(){
+            googleBtn.classList.add('buttonDeactive');
+            googleBtn.classList.remove('buttonActive');
+        }, 100);
+
     const provider = new firebase.auth.GoogleAuthProvider()
-  
+    
+
+
     firebase
       .auth()
       .signInWithPopup(provider)
@@ -30,13 +40,22 @@
   
   function writeUserData(login) {
     var writeRef = firebase.database().ref(login+'/');
+    nameN = document.getElementById("newName").value,
+    emailN = document.getElementById("newEmail").value,
+    phoneN = document.getElementById("newPhone").value
+
+    var val;
+    val = validateInfo(nameN, emailN, phoneN);
+
+    if (val === null) {
     writeRef.push({
-        name: document.getElementById("newName").value,
-        email: document.getElementById("newEmail").value,
-        phone: document.getElementById("newPhone").value
+        name: nameN,
+        email: emailN,
+        phone: phoneN
     });
     location.reload();
   }
+}
 
   function getUsers() {
       getUserData(userEmail);
@@ -143,7 +162,10 @@
         createForm.style.display= "block";
         detailsForm.style.display= "none";
         editForm.style.display = "none";
-
+        createBtn.classList.add('buttonActive');
+        createBtn.classList.remove('buttonDeactive');
+        indexBtn.classList.remove('buttonActive');
+        indexBtn.classList.add('buttonDeactive');
     }
 
     function showIndex() {
@@ -151,7 +173,11 @@
         createForm.style.display= "none";
         detailsForm.style.display= "none";
         editForm.style.display = "none";
-        location.reload();
+        indexBtn.classList.add('buttonActive');
+        indexBtn.classList.remove('buttonDeactive');
+        createBtn.classList.remove('buttonActive');
+        createBtn.classList.add('buttonDeactive');
+
 
     }
 
@@ -160,6 +186,10 @@
         createForm.style.display= "none";
         detailsForm.style.display= "block";
         editForm.style.display = "none";
+        createBtn.classList.remove('buttonActive');
+        createBtn.classList.add('buttonDeactive');
+        indexBtn.classList.remove('buttonActive');
+        indexBtn.classList.add('buttonDeactive');
 
         const nameP = document.getElementById("nameP");
         const emailP = document.getElementById("emailP");
@@ -189,6 +219,10 @@
         createForm.style.display= "none";
         detailsForm.style.display= "none";
         editForm.style.display = "block";
+        createBtn.classList.remove('buttonActive');
+        createBtn.classList.add('buttonDeactive');
+        indexBtn.classList.remove('buttonActive');
+        indexBtn.classList.add('buttonDeactive');
         
         const nameF = document.getElementById("editNameField");
         const emailF = document.getElementById("editEmailField");
@@ -199,6 +233,10 @@
         phoneF.value = contact[selectedID]["phone"];
 
         subEditBtn.addEventListener("click", function(e) {
+            var val;
+            val = validateInfo(nameF.value, emailF.value, phoneF.value);
+
+            if (val === null) {
             var editRef = firebase.database().ref(userEmail+'/');
             editRef.update({
                 [selectedID]: {
@@ -208,6 +246,8 @@
                 }
             });
             location.reload();
+        }
+
           });
     }
 
@@ -227,3 +267,41 @@
           return false;
         }
       }
+
+      function validateInfo (nameVal, emailVal, phoneVal) {
+            console.log(nameVal, emailVal, phoneVal);
+            //name pattern check
+            const nameRegEx = /^./
+            const nameTest = nameRegEx.test(nameVal)
+            var nameError = '';
+    
+            //email pattern check
+            const emailRegEx = /.+@.+\..+/
+            const emailTest = emailRegEx.test(emailVal)
+            var emailError = '';
+    
+            //phone pattern check
+            const phoneRegEx = /^[2-9][0-9]{9}$/
+            const phoneTest = phoneRegEx.test(phoneVal)
+            var phoneError = '';
+    
+            if (nameTest === false){
+                var nameError = 'Error: Must enter name. ';
+            }
+            if (emailTest === false){
+                var emailError = 'Error: Invalid email address. ';
+            }
+            if (phoneTest === false){
+                var phoneError = 'Error: Invalid phone number. ';
+            }
+            var errorMsg = nameError + emailError + phoneError;
+
+            if (errorMsg === '') {
+                console.log('no errors!')
+                return null
+                
+            }
+            else {
+                alert(errorMsg);
+            }
+        }
