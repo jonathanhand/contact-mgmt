@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact Management working?</title>
+    <title>Contact Management</title>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="/__/firebase/5.10.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -35,13 +35,14 @@
 
 </div>
 <div>
+  <!-- NAV BAR ---------->
 <div class = 'content' id = 'content'>
     <div class = 'topBar' id = 'topBar'> 
         <div class = 'barContent'>
             <span class = 'CM'> Contact Management </span>
             <input onclick="showIndex()" type = 'button' class = 'buttonActive' id = 'indexBtn' value = '&#9776 Index'/>
             <input onclick="showCreate()" type = 'button' class = 'buttonDeactive' id = 'createBtn' value = '&#10010 New'/>
-            <button id="googleBtn" style="float: right; "class = 'buttonDeactive' onclick="googleLogin()">Login with Google</button>
+            <button id="googleBtn" style="float: right;margin-right: 20px; "class = 'buttonDeactive' onclick="googleLogin()">Login with Google</button>
 
         </div>
     </div>
@@ -52,7 +53,7 @@
 <div id="indexArea">
     <h1>Contact List</h1></p>
           <div id="message">
-            <p id="userID">Default Contact List... Log in for your comtacts</p>
+            <p id="userID">Default Contact List... Log in for your contacts</p>
                 <table class="topBorder" id="table1">
                   <div class='header'>
                     <th>#</th>

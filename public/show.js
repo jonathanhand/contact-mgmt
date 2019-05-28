@@ -81,7 +81,7 @@ function showEdit (selectedID) {
         val = validateInfo(nameF.value, emailF.value, phoneF.value);
 
         if (val === null) {
-        var editRef = firebase.database().ref(userEmail+'/');
+        var editRef = firebase.database().ref(userID+'/');
         editRef.update({
             [selectedID]: {
             name: nameF.value,
