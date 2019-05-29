@@ -79,6 +79,7 @@ function loadContacts() {
   var loginRef = firebase.database().ref().child('/' + userID + '/');
   loginRef.on('value', function(snapshot) {
       contact = snapshot.val();
+      counter=0;
     printList(contact);
     console.log(contact);
   });
@@ -243,3 +244,4 @@ function validateInfo (nameVal, emailVal, phoneVal) {
 
 //loads the db records
 loadContacts();
+

@@ -1,3 +1,4 @@
+
 function showCreate() {
     
     indexForm.style.display= "none";
@@ -67,6 +68,11 @@ function showEdit (selectedID) {
     createBtn.classList.add('buttonDeactive');
     indexBtn.classList.remove('buttonActive');
     indexBtn.classList.add('buttonDeactive');
+
+
+
+    const subEditBtn = document.getElementById("subEditBtn");
+    subEditBtn.setAttribute("edit-id", selectedID);
     
     const nameF = document.getElementById("editNameField");
     const emailF = document.getElementById("editEmailField");
@@ -76,21 +82,24 @@ function showEdit (selectedID) {
     emailF.value = contact[selectedID]["email"];
     phoneF.value = contact[selectedID]["phone"];
 
-    subEditBtn.addEventListener("click", function(e) {
-        var val;
-        val = validateInfo(nameF.value, emailF.value, phoneF.value);
-
-        if (val === null) {
-        var editRef = firebase.database().ref(userID+'/');
-        editRef.update({
-            [selectedID]: {
-            name: nameF.value,
-            email: emailF.value,
-            phone: phoneF.value
-            }
-        });
-        showIndex();
-      }
-
-      });
 }
+
+document.getElementById("subEditBtn").addEventListener("click", function(e) {
+    const nameF = document.getElementById("editNameField");
+    const emailF = document.getElementById("editEmailField");
+    const phoneF = document.getElementById("editPhoneField");
+    var val;
+    val = validateInfo(nameF.value, emailF.value, phoneF.value);
+    var selectedID = document.getElementById("subEditBtn").getAttribute("edit-id");
+    if (val === null) {
+    var editRef = firebase.database().ref(userID+'/');
+    editRef.update({
+        [selectedID]: {
+        name: nameF.value,
+        email: emailF.value,
+        phone: phoneF.value
+        }
+    });
+    showIndex();
+    }
+    });
