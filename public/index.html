@@ -33,22 +33,25 @@
 
 
 
-</div>
-<div>
+
+<div class="allContent">
   <!-- NAV BAR ---------->
-<div class = 'content' id = 'content'>
+<div class = 'content, barContent' id = 'content'>
     <div class = 'topBar' id = 'topBar'> 
         <div class = 'barContent'>
             <span class = 'CM'> Contact Management </span>
+            <div class="barButtons">
+              <div class="centerButtons">
             <input onclick="showIndex()" type = 'button' class = 'buttonActive' id = 'indexBtn' value = '&#9776 Index'/>
             <input onclick="showCreate()" type = 'button' class = 'buttonDeactive' id = 'createBtn' value = '&#10010 New'/>
-            <button id="googleBtn" style="float: right;margin-right: 20px; "class = 'buttonDeactive' onclick="googleLogin()">Login with Google</button>
-
+              </div>
+            <button id="googleBtn" style="float: right;margin-right: 20px; "class = 'buttonDeactive' onclick="googleLogin()">Google Sign-in</button>
+            </div>
         </div>
     </div>
     <div class = 'targetArea' id = 'targetArea'></div>
 </div>
-<div class="wrapper">
+<div class="belowBarContent">
 <!-- INDEX FORM---------->
 <div id="indexArea">
     <h1>Contact List</h1></p>
@@ -67,24 +70,23 @@
                     </div>
               </div>
             </div>
-          </div>
+        
 <!-- CREATE FORM---------->
-<div id="createForm" style="display:none">
+<div id="createForm" class="createForm" style="display:none">
     <form>
-        <div class="form">
+        <div >
               <fieldset>
                   <legend><h2>New Contact</h2></legend>
                   Name:<br>
-                  <input type="text" class="fieldWidth" id="newName" placeholder="Jonathan Hand" ><br>
+                  <input type="text" class="fieldWidth" id="newName" placeholder="John Smith" ><br>
                   Email:<br>
-                  <input type="text" class="fieldWidth"id="newEmail"  placeholder="jhand@example.com" ><br>
+                  <input type="text" class="fieldWidth"id="newEmail"  placeholder="jsmith@example.com" ><br>
                   Phone Number:<br>
                   <input type="text" class="fieldWidth"id="newPhone" placeholder="555-555-5555"><br><br>
                   <button type="button" id="myButton" class="subBtn" onclick="addUser()">Submit</button>
               </fieldset>
             </div>
           </form>
-</div>
 </div>
 <!-- DETAILS FORM---------->
 <div id="detailsForm" style="display:none">
@@ -111,7 +113,7 @@
     </form>
 </div>
 <!-- EDIT FORM---------->
-<div id="editForm" style="display:none">
+<div id="editForm" class="createForm" style="display:none">
  
         <div class="form">
           <div id="cHeadingDiv">
@@ -127,8 +129,9 @@
                   <input type="text" class="fieldWidth"id="editPhoneField"><br>
               </fieldset>
               <button type="button" id="subEditBtn" class="subBtn">Submit</button>
+            </form>
             </div>
-    </form>
+    
 </div>
 </div>
 </div>

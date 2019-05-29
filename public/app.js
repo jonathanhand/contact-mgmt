@@ -216,7 +216,7 @@ function validateInfo (nameVal, emailVal, phoneVal) {
       var emailError = '';
 
       //phone pattern check
-      const phoneRegEx = /^[2-9][0-9]{9}$/
+      const phoneRegEx = /^\d{3}-\d{3}-\d{4}$/
       const phoneTest = phoneRegEx.test(phoneVal)
       var phoneError = '';
 
